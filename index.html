@@ -1,4 +1,4 @@
-=<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6,79 +6,789 @@
 
     <title>IRBISSILENT</title>
 
+    <meta
+        name="description"
+        content="IRBISSILENT is a method for seeing clearly, locating the mismatch, understanding its cause and refining the whole."
+    >
+
     <style>
+        :root {
+            --black: #000000;
+            --white: #f5f5f3;
+            --soft-white: #c9c9c5;
+            --grey: #777774;
+            --line: rgba(255, 255, 255, 0.12);
+            --blue: #18283e;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        body {
-            background: #050505;
-            color: #f5f5f5;
-            font-family: Arial, Helvetica, sans-serif;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        html {
+            scroll-behavior: smooth;
         }
 
-        main {
-            width: min(900px, 88%);
+        body {
+            background: var(--black);
+            color: var(--white);
+            font-family: Arial, Helvetica, sans-serif;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .page {
+            width: 100%;
+            background: #000;
+        }
+
+        /* =========================
+           NAVIGATION
+        ========================== */
+
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 28px 5vw;
+            background:
+                linear-gradient(
+                    to bottom,
+                    rgba(0,0,0,0.9),
+                    rgba(0,0,0,0)
+                );
+        }
+
+        .brand {
+            font-size: 13px;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+        }
+
+        .nav-right {
+            display: flex;
+            gap: 30px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--soft-white);
+        }
+
+        .nav-right a {
+            transition: opacity 0.25s ease;
+        }
+
+        .nav-right a:hover {
+            opacity: 0.55;
+        }
+
+        /* =========================
+           HERO
+        ========================== */
+
+        .hero {
+            min-height: 100vh;
+            position: relative;
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            align-items: center;
+            padding: 120px 6vw 70px;
+            border-bottom: 1px solid var(--line);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            right: 4%;
+            top: 50%;
+            transform: translateY(-50%);
+            background: radial-gradient(
+                circle,
+                rgba(24, 40, 62, 0.13) 0%,
+                rgba(0,0,0,0) 68%
+            );
+            pointer-events: none;
+        }
+
+        .hero-copy {
+            position: relative;
+            z-index: 2;
+            max-width: 760px;
+        }
+
+        .eyebrow {
+            margin-bottom: 35px;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.24em;
+            color: var(--grey);
         }
 
         h1 {
-            font-size: clamp(3rem, 10vw, 7rem);
+            font-size: clamp(64px, 8vw, 132px);
+            line-height: 0.86;
             font-weight: 700;
-            letter-spacing: -0.05em;
-            line-height: 0.9;
+            letter-spacing: -0.055em;
         }
+
+        .hero-definition {
+            margin-top: 52px;
+            max-width: 510px;
+            font-size: clamp(18px, 1.55vw, 24px);
+            line-height: 1.5;
+            color: var(--soft-white);
+        }
+
+        .hero-definition strong {
+            color: var(--white);
+            font-weight: 500;
+        }
+
+        .hero-image {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 650px;
+        }
+
+        .irbis-frame {
+            width: min(100%, 660px);
+            aspect-ratio: 1 / 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .irbis-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        .image-placeholder {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(255,255,255,0.06);
+            color: #3f3f3f;
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            pointer-events: none;
+        }
+
+        .scroll-note {
+            position: absolute;
+            left: 6vw;
+            bottom: 35px;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: #505050;
+        }
+
+        /* =========================
+           STATEMENT
+        ========================== */
 
         .statement {
-            margin-top: 48px;
-            font-size: clamp(1.1rem, 2vw, 1.5rem);
-            line-height: 1.6;
-            color: #b8b8b8;
+            min-height: 78vh;
+            display: flex;
+            align-items: center;
+            padding: 110px 8vw;
+            border-bottom: 1px solid var(--line);
         }
+
+        .statement-inner {
+            max-width: 1200px;
+        }
+
+        .section-index {
+            margin-bottom: 50px;
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            color: var(--grey);
+        }
+
+        .statement h2 {
+            max-width: 1100px;
+            font-size: clamp(42px, 6vw, 92px);
+            line-height: 1.02;
+            font-weight: 500;
+            letter-spacing: -0.045em;
+        }
+
+        .statement h2 span {
+            color: #656562;
+        }
+
+        /* =========================
+           PRINCIPLE
+        ========================== */
+
+        .principle {
+            padding: 120px 8vw;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .principle-grid {
+            display: grid;
+            grid-template-columns: 0.75fr 1.25fr;
+            gap: 10vw;
+            align-items: start;
+        }
+
+        .principle-label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: var(--grey);
+        }
+
+        .principle-copy {
+            max-width: 830px;
+        }
+
+        .principle-copy h3 {
+            font-size: clamp(32px, 4vw, 62px);
+            line-height: 1.05;
+            font-weight: 500;
+            letter-spacing: -0.035em;
+            margin-bottom: 38px;
+        }
+
+        .principle-copy p {
+            max-width: 690px;
+            font-size: 19px;
+            line-height: 1.7;
+            color: var(--soft-white);
+        }
+
+        /* =========================
+           METHOD
+        ========================== */
 
         .method {
-            margin-top: 64px;
-            padding-top: 24px;
-            border-top: 1px solid #2a2a2a;
-            font-size: 0.9rem;
-            line-height: 1.8;
-            color: #777;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
+            padding: 120px 8vw 140px;
+            border-bottom: 1px solid var(--line);
         }
 
-        .standard {
-            margin-top: 64px;
-            font-size: 1rem;
-            color: #f5f5f5;
+        .method-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 30px;
+            margin-bottom: 80px;
         }
+
+        .method-head h2 {
+            font-size: clamp(52px, 7vw, 106px);
+            line-height: 0.9;
+            letter-spacing: -0.055em;
+        }
+
+        .method-head p {
+            max-width: 300px;
+            color: var(--grey);
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .steps {
+            border-top: 1px solid var(--line);
+        }
+
+        .step {
+            display: grid;
+            grid-template-columns: 80px 1fr auto;
+            gap: 30px;
+            align-items: center;
+            padding: 27px 0;
+            border-bottom: 1px solid var(--line);
+            transition:
+                padding-left 0.25s ease,
+                background 0.25s ease;
+        }
+
+        .step:hover {
+            padding-left: 12px;
+        }
+
+        .step-number {
+            font-size: 10px;
+            letter-spacing: 0.18em;
+            color: #555;
+        }
+
+        .step-name {
+            font-size: clamp(24px, 3vw, 45px);
+            letter-spacing: -0.025em;
+        }
+
+        .step-arrow {
+            color: #4f4f4d;
+            font-size: 20px;
+        }
+
+        /* =========================
+           STANDARD
+        ========================== */
+
+        .standard {
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 8vw;
+            text-align: center;
+            border-bottom: 1px solid var(--line);
+        }
+
+        .standard-inner {
+            max-width: 1150px;
+        }
+
+        .standard-small {
+            margin-bottom: 45px;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.25em;
+            color: var(--grey);
+        }
+
+        .standard h2 {
+            font-size: clamp(48px, 7vw, 110px);
+            line-height: 0.97;
+            letter-spacing: -0.055em;
+            font-weight: 500;
+        }
+
+        .standard h2 span {
+            display: block;
+            color: #5d5d5a;
+        }
+
+        /* =========================
+           FOOTER
+        ========================== */
+
+        footer {
+            padding: 70px 6vw 40px;
+        }
+
+        .footer-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            gap: 40px;
+            padding-bottom: 80px;
+        }
+
+        .footer-title {
+            font-size: clamp(44px, 6vw, 92px);
+            line-height: 0.9;
+            letter-spacing: -0.05em;
+        }
+
+        .footer-status {
+            text-align: right;
+            font-size: 11px;
+            line-height: 1.8;
+            text-transform: uppercase;
+            letter-spacing: 0.14em;
+            color: var(--grey);
+        }
+
+        .status-dot {
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            margin-right: 8px;
+            border-radius: 50%;
+            background: #f5f5f3;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--line);
+            padding-top: 25px;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.13em;
+            color: #555;
+        }
+
+        /* =========================
+           MOBILE
+        ========================== */
+
+        @media (max-width: 900px) {
+            .nav {
+                padding: 22px 22px;
+            }
+
+            .nav-right {
+                display: none;
+            }
+
+            .hero {
+                min-height: auto;
+                grid-template-columns: 1fr;
+                padding: 125px 24px 65px;
+            }
+
+            .hero-copy {
+                order: 1;
+            }
+
+            .hero-image {
+                order: 2;
+                min-height: auto;
+                margin-top: 55px;
+            }
+
+            .irbis-frame {
+                width: 100%;
+            }
+
+            .scroll-note {
+                display: none;
+            }
+
+            .statement {
+                min-height: auto;
+                padding: 100px 24px;
+            }
+
+            .principle,
+            .method {
+                padding-left: 24px;
+                padding-right: 24px;
+            }
+
+            .principle-grid {
+                grid-template-columns: 1fr;
+                gap: 45px;
+            }
+
+            .method-head {
+                display: block;
+            }
+
+            .method-head p {
+                margin-top: 35px;
+            }
+
+            .step {
+                grid-template-columns: 45px 1fr auto;
+                gap: 15px;
+            }
+
+            .standard {
+                min-height: 70vh;
+                padding: 100px 24px;
+            }
+
+            footer {
+                padding-left: 24px;
+                padding-right: 24px;
+            }
+
+            .footer-top {
+                display: block;
+            }
+
+            .footer-status {
+                margin-top: 45px;
+                text-align: left;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+            }
+        }
+
     </style>
 </head>
 
 <body>
 
+<div class="page">
+
+    <nav class="nav">
+        <a href="#top" class="brand">IRBISSILENT</a>
+
+        <div class="nav-right">
+            <a href="#principle">Principle</a>
+            <a href="#method">Method</a>
+            <a href="#standard">Standard</a>
+        </div>
+    </nav>
+
     <main>
-        <h1>IRBISSILENT</h1>
 
-        <div class="statement">
-            irbis is the author.<br>
-            irbissilent is the method.
-        </div>
+        <!-- HERO -->
 
-        <div class="method">
-            observe → compare → locate the mismatch → understand its cause<br>
-            create alternatives → select → refine → verify the whole → final
-        </div>
+        <section class="hero" id="top">
 
-        <div class="standard">
-            the tools may change. the standard remains.
-        </div>
+            <div class="hero-copy">
+
+                <div class="eyebrow">
+                    Independent creative method
+                </div>
+
+                <h1>
+                    IRBIS<br>
+                    SILENT
+                </h1>
+
+                <p class="hero-definition">
+                    <strong>irbis is the author.</strong><br>
+                    irbissilent is the method.
+                </p>
+
+            </div>
+
+            <div class="hero-image">
+
+                <div class="irbis-frame">
+
+                    <!--
+                    NEXT STEP:
+                    place the approved snow leopard image
+                    in this folder and name it:
+                    irbis.png
+                    -->
+
+                    <img
+                        src="WWZD9980.PNG"
+                        alt="IRBISSILENT snow leopard"
+                    >
+
+                    <div class="image-placeholder">
+                        IRBIS / VISUAL IDENTITY
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="scroll-note">
+                Scroll to observe the system
+            </div>
+
+        </section>
+
+
+        <!-- STATEMENT -->
+
+        <section class="statement">
+
+            <div class="statement-inner">
+
+                <div class="section-index">
+                    01 — POSITION
+                </div>
+
+                <h2>
+                    The work begins when
+                    <span>something does not belong.</span>
+                </h2>
+
+            </div>
+
+        </section>
+
+
+        <!-- PRINCIPLE -->
+
+        <section class="principle" id="principle">
+
+            <div class="principle-grid">
+
+                <div class="principle-label">
+                    Principle
+                </div>
+
+                <div class="principle-copy">
+
+                    <h3>
+                        See the whole.<br>
+                        Then refine the part.
+                    </h3>
+
+                    <p>
+                        IRBISSILENT is not a style attached to a tool.
+                        It is a way of working: observe what exists,
+                        compare it with what should exist, locate the
+                        mismatch, understand its cause and refine the
+                        system until every part belongs to the whole.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- METHOD -->
+
+        <section class="method" id="method">
+
+            <div class="method-head">
+
+                <h2>
+                    THE<br>
+                    METHOD
+                </h2>
+
+                <p>
+                    Nine movements.
+                    One continuous standard.
+                </p>
+
+            </div>
+
+            <div class="steps">
+
+                <div class="step">
+                    <div class="step-number">01</div>
+                    <div class="step-name">Observe</div>
+                    <div class="step-arrow">→</div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">02</div>
+                    <div class="step-name">Compare</div>
+                    <div class="step-arrow">→</div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">03</div>
+                    <div class="step-name">Locate the mismatch</div>
+                    <div class="step-arrow">→</div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">04</div>
+                    <div class="step-name">Understand its cause</div>
+                    <div class="step-arrow">→</div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">05</div>
+                    <div class="step-name">Create alternatives</div>
+                    <div class="step-arrow">→</div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">06</div>
+                    <div class="step-name">Select</div>
+                    <div class="step-arrow">→</div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">07</div>
+                    <div class="step-name">Refine</div>
+                    <div class="step-arrow">→</div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">08</div>
+                    <div class="step-name">Verify the whole</div>
+                    <div class="step-arrow">→</div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">09</div>
+                    <div class="step-name">Final</div>
+                    <div class="step-arrow">■</div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- STANDARD -->
+
+        <section class="standard" id="standard">
+
+            <div class="standard-inner">
+
+                <div class="standard-small">
+                    The constant
+                </div>
+
+                <h2>
+                    The tools may change.
+                    <span>The standard remains.</span>
+                </h2>
+
+            </div>
+
+        </section>
+
     </main>
+
+
+    <!-- FOOTER -->
+
+    <footer>
+
+        <div class="footer-top">
+
+            <div class="footer-title">
+                IRBISSILENT
+            </div>
+
+            <div class="footer-status">
+                <span class="status-dot"></span>
+                working system<br>
+                foundation / 2026
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+
+            <div>
+                irbis is the author.
+            </div>
+
+            <div>
+                irbissilent is the method.
+            </div>
+
+        </div>
+
+    </footer>
+
+</div>
 
 </body>
 </html>
